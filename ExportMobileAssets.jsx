@@ -21,7 +21,7 @@ if(document && folder) {
 	var dialog = new Window("dialog","Export assets to ...");
 
 	// ----- Folder destination
-	var folderButton = createFilePanel("File destination", dialog);
+	var folderPanel = createFilePanel("File destination", dialog);
 	// -----
 
 	dialog.show();
