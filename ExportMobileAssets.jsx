@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 var document = app.activeDocument;
 var folder = new Folder(document.path);
 
@@ -21,7 +21,11 @@ if(document && folder) {
 	var dialog = new Window("dialog","Export assets to ...");
 
 	// ----- Folder destination
-	var folderPanel = createFilePanel("File destination", dialog);
+	createFilePanel("File destination", dialog);
+	// -----
+
+	// ----- Button
+	createButtonPanel(dialog);
 	// -----
 
 	dialog.show();
@@ -45,5 +49,19 @@ function createFilePanel(name, parent) {
 		else {
 			//alert("Cannot change current path");
 		}
+	};
+}
+
+function createButtonPanel(parent) {
+	var panel = parent.add("group");
+	var cancelButton = panel.add("button", undefined, "Cancel");
+	var exportButton = panel.add("button", undefined, "Export");
+
+	cancelButton.onClick = function() {
+		this.parent.parent.close();
+	};
+
+	exportButton.onClick = function() {
+		this.parent.parent.close();
 	};
 }
