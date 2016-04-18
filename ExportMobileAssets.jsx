@@ -12,4 +12,14 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+ */ */
+ 
+var document = app.activeDocument;
+var folder = new Folder(document.path);
+
+if(document && folder) {
+	var dialog = new Window("dialog","Export assets to ...");    dialog.show();
+    
+    dialog.show();
+}
+
