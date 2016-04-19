@@ -184,14 +184,15 @@ function createOSPanel(name, parent, array) {
 
 function createButtonPanel(parent) {
 	var panel = parent.add("group");
-	var cancelButton = panel.add("button", undefined, "Cancel");
+	panel.alignChildren = 'right';
 	var exportButton = panel.add("button", undefined, "Export");
+	var cancelButton = panel.add("button", undefined, "Cancel");
 
-	cancelButton.onClick = function() {
+	exportButton.onClick = function() {
 		this.parent.parent.close();
 	};
 
-	exportButton.onClick = function() {
+	cancelButton.onClick = function() {
 		this.parent.parent.close();
 	};
 }
