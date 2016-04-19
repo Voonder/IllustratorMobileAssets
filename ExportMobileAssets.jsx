@@ -145,11 +145,14 @@ if(document && folder) {
 function createFilePanel(name, parent) {
 	var panel = parent.add("panel", undefined, name);
 	panel.orientation = 'row';
+    panel.alignment = 'fill';
 
 	var fileLocationEditText = panel.add("edittext", undefined, "File destination");
 	fileLocationEditText.text = folder.fsName;
 	fileLocationEditText.enabled = false;
+    
 	var changePathButton = panel.add("button", undefined, "...");
+    changePathButton.size = [28, 28];
 
 	changePathButton.onClick = function() {
 		var tmpFolder = Folder.selectDialog("Select new folder destination", folder.fsName);
