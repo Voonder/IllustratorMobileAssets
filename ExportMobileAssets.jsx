@@ -23,8 +23,7 @@ var androidExport = [
 	{ type:"android", category:"Launcher Icon", name:"xhdpi", key:"-xhdpi", width:96, height:96 },
 	{ type:"android", category:"Launcher Icon", name:"xxhdpi", key:"-xxhdpi", width:144, height:144 },
 	{ type:"android", category:"Launcher Icon", name:"xxxhdpi", key:"-xxxhdpi", width:192, height:192 },
-	{ type:"android", category:"Launcher Icon", name:"web", key:"web", width:512, height:512 },
-    
+	
 	{ type:"android", category:"Action bar, Dialog & Tab icons", name:"ldpi", key:"-ldpi", width:24, height:24 },
 	{ type:"android", category:"Action bar, Dialog & Tab icons", name:"mdpi", key:"-mdpi", width:32, height:32 },
 	{ type:"android", category:"Action bar, Dialog & Tab icons", name:"tvdpi",key:"-tvdpi", width:42, height:42 },
@@ -32,7 +31,7 @@ var androidExport = [
 	{ type:"android", category:"Action bar, Dialog & Tab icons", name:"xhdpi", key:"-xhdpi", width:64, height:64 },
 	{ type:"android", category:"Action bar, Dialog & Tab icons", name:"xxhdpi", key:"-xxhdpi", width:96, height:96 },
 	{ type:"android", category:"Action bar, Dialog & Tab icons", name:"xxxhdpi", key:"-xxxhdpi", width:128, height:128 },
-    
+	
 	{ type:"android", category:"Small Contextual Icons", name:"ldpi", key:"-ldpi", width:12, height:12 },
 	{ type:"android", category:"Small Contextual Icons", name:"mdpi", key:"-mdpi", width:16, height:16 },
 	{ type:"android", category:"Small Contextual Icons", name:"tvdpi", key:"-tvdpi", width:21, height:21 },
@@ -40,38 +39,42 @@ var androidExport = [
 	{ type:"android", category:"Small Contextual Icons", name:"xhdpi", key:"-xhdpi", width:32, height:64 },
 	{ type:"android", category:"Small Contextual Icons", name:"xxhdpi", key:"-xxhdpi", width:48, height:48 },
 	{ type:"android", category:"Small Contextual Icons", name:"xxxhdpi", key:"-xxxhdpi", width:64, height:64 },
-    
+	
 	{ type:"android", category:"Notification icons", name:"ldpi", key:"-ldpi", width:18, height:18 },
 	{ type:"android", category:"Notification icons", name:"mdpi", key:"-mdpi", width:24, height:24 },
 	{ type:"android", category:"Notification icons", name:"tvdpi", key:"-tvdpi", width:32, height:32 },
 	{ type:"android", category:"Notification icons", name:"hdpi", key:"-hdpi", width:36, height:36 },
 	{ type:"android", category:"Notification icons", name:"xhdpi", key:"-xhdpi", width:48, height:48 },
 	{ type:"android", category:"Notification icons", name:"xxhdpi", key:"-xxhdpi", width:72, height:72 },
-	{ type:"android", category:"Notification icons", name:"xxxhdpi", key:"-xxxhdpi", width:96, height:96 }
+	{ type:"android", category:"Notification icons", name:"xxxhdpi", key:"-xxxhdpi", width:96, height:96 },
+
+	{ type:"android", category:"Others", name:"Icon store", key:"web", width:512, height:512 }
 ];
 
 var iosExport = [
-	{ type:"ios", category:"", name:"Icon.png", key:"", width:57, height:57 },
-	{ type:"ios", category:"", name:"Icon@2x.png", key:"@2x", width:114, height:114 },
-	{ type:"ios", category:"", name:"Icon-Small.png", key:"-Small", width:29, height:29 },
-	{ type:"ios", category:"", name:"Icon-Small@2x.png", key:"-Small@2x", width:58, height:58 },
-	{ type:"ios", category:"", name:"Icon-Small@3x.png", key:"-Small@3x", width:87, height:87 },
-	{ type:"ios", category:"", name:"Icon-Small-40.png", key:"-Small-40", width:40, height:40 },
-	{ type:"ios", category:"", name:"Icon-Small-40@2x.png", key:"-Small-40@2x", width:80, height:80 },
-	{ type:"ios", category:"", name:"Icon-Small-40@3x.png", key:"-Small-40@3x", width:120, height:120 },
-	{ type:"ios", category:"", name:"Icon-Small-50.png", key:"-Small-50", width:50, height:50 },
-	{ type:"ios", category:"", name:"Icon-Small-50@2x.png", key:"-Small-50@2x", width:100, height:100 },
-	{ type:"ios", category:"", name:"Icon-60@2x.png", key:"-60@2x", width:120, height:120 },
-	{ type:"ios", category:"", name:"Icon-60@3x.png", key:"-60@3x", width:180, height:180 },
-	{ type:"ios", category:"", name:"Icon-72.png", key:"-72", width:72, height:72 },
-	{ type:"ios", category:"", name:"Icon-72@2x.png", key:"-72@2x", width:144, height:144 },
-	{ type:"ios", category:"", name:"Icon-76.png", key:"-76", width:76, height:76 },
-	{ type:"ios", category:"", name:"Icon-76@2x.png", key:"-76@2x", width:152, height:152 },
-	{ type:"ios", category:"", name:"iTunesArtwork.png", key:"iTunesArtwork", width:512, height:512 },
-	{ type:"ios", category:"", name:"iTunesArtwork@2x.png", key:"iTunesArtwork@2x", width:1024, height:1024 }
+	{ type:"ios", category:"iOS 7 and above", name:"Icon-Small.png", key:"-Small", width:29, height:29 },
+	{ type:"ios", category:"iOS 7 and above", name:"Icon-Small@2x.png", key:"-Small@2x", width:58, height:58 },
+	{ type:"ios", category:"iOS 7 and above", name:"Icon-Small@3x.png", key:"-Small@3x", width:87, height:87 },
+	{ type:"ios", category:"iOS 7 and above", name:"Icon-Small-40.png", key:"-Small-40", width:40, height:40 },
+	{ type:"ios", category:"iOS 7 and above", name:"Icon-Small-40@2x.png", key:"-Small-40@2x", width:80, height:80 },
+	{ type:"ios", category:"iOS 7 and above", name:"Icon-Small-40@3x.png", key:"-Small-40@3x", width:120, height:120 },
+	{ type:"ios", category:"iOS 7 and above", name:"Icon-60@2x.png", key:"-60@2x", width:120, height:120 },
+	{ type:"ios", category:"iOS 7 and above", name:"Icon-60@3x.png", key:"-60@3x", width:180, height:180 },
+	{ type:"ios", category:"iOS 7 and above", name:"Icon-76.png", key:"-76", width:76, height:76 },
+	{ type:"ios", category:"iOS 7 and above", name:"Icon-76@2x.png", key:"-76@2x", width:152, height:152 },
+
+	{ type:"ios", category:"iOS 6.1 and earlier", name:"Icon.png", key:"", width:57, height:57 },
+	{ type:"ios", category:"iOS 6.1 and earlier", name:"Icon@2x.png", key:"@2x", width:114, height:114 },
+	{ type:"ios", category:"iOS 6.1 and earlier", name:"Icon-72.png", key:"-72", width:72, height:72 },
+	{ type:"ios", category:"iOS 6.1 and earlier", name:"Icon-72@2x.png", key:"-72@2x", width:144, height:144 },
+	{ type:"ios", category:"iOS 6.1 and earlier", name:"Icon-Small-50.png", key:"-Small-50", width:50, height:50 },
+	{ type:"ios", category:"iOS 6.1 and earlier", name:"Icon-Small-50@2x.png", key:"-Small-50@2x", width:100, height:100 },
+	
+	{ type:"ios", category:"Others", name:"iTunesArtwork", key:"iTunesArtwork", width:512, height:512 },
+	{ type:"ios", category:"Others", name:"iTunesArtwork@2x", key:"iTunesArtwork@2x", width:1024, height:1024 }
 ];
 
-var windowsExport = [
+var uwpExport = [
 	{ type:"windows", category:"Small", name:"scale-100", key:"SmallTile.scale-100", width:71, height:71 },
 	{ type:"windows", category:"Small", name:"scale-125", key:"SmallTile.scale-125", width:89, height:89 },
 	{ type:"windows", category:"Small", name:"scale-150", key:"SmallTile.scale-150", width:107, height:107 },
@@ -109,19 +112,30 @@ var document = app.activeDocument;
 var folder = new Folder(document.path);
 
 if(document && folder) {
+	
 	var dialog = new Window("dialog","Export assets to ...");
-
+	dialog.alignChildren = 'right';
+	
 	// ----- Folder panel
 	createFilePanel("File destination", dialog);
 	// -----
-
-	// ----- OS panel
-	var osGroup = dialog.add("group");
-	osGroup.orientation = 'row';
-	osGroup.alignChildren = 'top';
-	createOSPanel("Android", osGroup, androidExport);
-	createOSPanel("iOS", osGroup, iosExport);
-	createOSPanel("Windows", osGroup, windowsExport);
+	
+	// ----- OS table panel
+	var tpanel =dialog.add ("tabbedpanel");
+	
+	var androidTab = tpanel.add ("tab", undefined, "Android");
+	androidTab.orientation = 'row';
+	androidTab.alignChildren = 'top';
+	var iosTab = tpanel.add ("tab", undefined, "iOS");
+	iosTab.orientation = 'row';
+	iosTab.alignChildren = 'top';
+	var uwpTab = tpanel.add ("tab", undefined, "Universal Windows Platform");
+	uwpTab.orientation = 'row';
+	uwpTab.alignChildren = 'top';
+	
+	createOSTabPanel(androidTab, androidExport);
+	createOSTabPanel(iosTab, iosExport);
+	createOSTabPanel(uwpTab, uwpExport);
 	// -----
 
 	// ----- Button
@@ -134,14 +148,14 @@ if(document && folder) {
 function createFilePanel(name, parent) {
 	var panel = parent.add("panel", undefined, name);
 	panel.orientation = 'row';
-    panel.alignment = 'fill';
+	panel.alignment = 'fill';
 
 	var fileLocationEditText = panel.add("edittext", undefined, "File destination");
 	fileLocationEditText.text = folder.fsName;
 	fileLocationEditText.enabled = false;
-    
+	
 	var changePathButton = panel.add("button", undefined, "...");
-    changePathButton.size = [28, 28];
+	changePathButton.size = [28, 28];
 
 	changePathButton.onClick = function() {
 		var tmpFolder = Folder.selectDialog("Select new folder destination", folder.fsName);
@@ -155,23 +169,45 @@ function createFilePanel(name, parent) {
 	};
 }
 
-function createOSPanel(name, parent, array) {
-	var panel = parent.add("panel", undefined, name);
-	panel.alignChildren = "left";
+function createOSTabPanel(parent, array){
+	var tmpCategory = "";
+	var tmpGroup;
 
-	for(var i = 0; i < array.length;  i++) {
-		var cb = panel.add("checkbox", undefined, "\u00A0" + array[i].name);
-		cb.item = array[i];
-		cb.onClick = function () {
-			if (this.value) {
-				selectedExport[this.item.name] = this.item;
-				//alert("added: " + this.item.name + ", index: " + this.item.index);
-			} else {
-				delete selectedExport[this.item.name];
-				//alert("deleted: " + this.item.name + ", index: " + this.item.index);
+	for (var i = 0; i < array.length; i++) {
+		if(array[i].category === tmpCategory){
+			generateCheckbox(tmpGroup, array[i]);
+		}
+		else{
+			tmpCategory = array[i].category;
+			tmpGroup = parent.add("group");
+			tmpGroup.orientation = 'column';
+			tmpGroup.alignChildren = 'left';
+			tmpGroup.margins = 16;
+			
+			tmpGroup.add("statictext", undefined, array[i].category);
+			
+			if(array[i].category !== "Others" && array[i].category !== "App list"){
+				tmpGroup.separator =parent.add ("panel");
+				tmpGroup.separator.alignment = 'fill';
 			}
-		};
+			
+			generateCheckbox(tmpGroup, array[i]);
+		}
 	}
+}
+
+function generateCheckbox(parent, item) {
+	var cb = parent.add("checkbox", undefined, "\u00A0" + item.name);
+	cb.item = item;
+	cb.onClick = function () {
+		if (this.value) {
+			selectedExport[this.item.name] = this.item;
+			//alert("added: " + this.item.name + ", index: " + this.item.index);
+		} else {
+			delete selectedExport[this.item.name];
+			//alert("deleted: " + this.item.name + ", index: " + this.item.index);
+		}
+	};
 }
 
 function createButtonPanel(parent) {
