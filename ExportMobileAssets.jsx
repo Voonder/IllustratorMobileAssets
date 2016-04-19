@@ -16,102 +16,91 @@
 #target illustrator
 
 var androidExport = [
-	{
-		name: "ldpi",
-		scaleFactor: 18.75,
-		type: "android"
-	},
-	{
-		name: "mdpi",
-		scaleFactor: 25,
-		type: "android"
-	},
-	{
-		name: "hdpi",
-		scaleFactor: 37.5,
-		type: "android"
-	},
-	{
-		name: "tvdpi",
-		scaleFactor: 43.75,
-		type: "android"
-	},
-	{
-		name: "xhdpi",
-		scaleFactor: 50,
-		type: "android"
-	},
-	{
-		name: "xxhdpi",
-		scaleFactor: 75,
-		type: "android"
-	},
-	{
-		name: "xxxhdpi",
-		scaleFactor: 100,
-		type: "android"
-	},
-	{
-		name: "web",
-		scaleFactor:266.667,
-		type: "android"
-	}
+	{ type:"android", category:"Launcher Icon", name:"ldpi", key:"-ldpi", width:36, height:36 },
+	{ type:"android", category:"Launcher Icon", name:"mdpi", key:"-mdpi", width:48, height:48 },
+	{ type:"android", category:"Launcher Icon", name:"tvdpi", key:"-tvdpi", width:64, height:64 },
+	{ type:"android", category:"Launcher Icon", name:"hdpi", key:"-hdpi", width:72, height:72 },
+	{ type:"android", category:"Launcher Icon", name:"xhdpi", key:"-xhdpi", width:96, height:96 },
+	{ type:"android", category:"Launcher Icon", name:"xxhdpi", key:"-xxhdpi", width:144, height:144 },
+	{ type:"android", category:"Launcher Icon", name:"xxxhdpi", key:"-xxxhdpi", width:192, height:192 },
+	{ type:"android", category:"Launcher Icon", name:"web", key:"web", width:512, height:512 },
+    
+	{ type:"android", category:"Action bar, Dialog & Tab icons", name:"ldpi", key:"-ldpi", width:24, height:24 },
+	{ type:"android", category:"Action bar, Dialog & Tab icons", name:"mdpi", key:"-mdpi", width:32, height:32 },
+	{ type:"android", category:"Action bar, Dialog & Tab icons", name:"tvdpi",key:"-tvdpi", width:42, height:42 },
+	{ type:"android", category:"Action bar, Dialog & Tab icons", name:"hdpi", key:"-hdpi", width:48, height:48 },
+	{ type:"android", category:"Action bar, Dialog & Tab icons", name:"xhdpi", key:"-xhdpi", width:64, height:64 },
+	{ type:"android", category:"Action bar, Dialog & Tab icons", name:"xxhdpi", key:"-xxhdpi", width:96, height:96 },
+	{ type:"android", category:"Action bar, Dialog & Tab icons", name:"xxxhdpi", key:"-xxxhdpi", width:128, height:128 },
+    
+	{ type:"android", category:"Small Contextual Icons", name:"ldpi", key:"-ldpi", width:12, height:12 },
+	{ type:"android", category:"Small Contextual Icons", name:"mdpi", key:"-mdpi", width:16, height:16 },
+	{ type:"android", category:"Small Contextual Icons", name:"tvdpi", key:"-tvdpi", width:21, height:21 },
+	{ type:"android", category:"Small Contextual Icons", name:"hdpi", key:"-hdpi", width:24, height:24 },
+	{ type:"android", category:"Small Contextual Icons", name:"xhdpi", key:"-xhdpi", width:32, height:64 },
+	{ type:"android", category:"Small Contextual Icons", name:"xxhdpi", key:"-xxhdpi", width:48, height:48 },
+	{ type:"android", category:"Small Contextual Icons", name:"xxxhdpi", key:"-xxxhdpi", width:64, height:64 },
+    
+	{ type:"android", category:"Notification icons", name:"ldpi", key:"-ldpi", width:18, height:18 },
+	{ type:"android", category:"Notification icons", name:"mdpi", key:"-mdpi", width:24, height:24 },
+	{ type:"android", category:"Notification icons", name:"tvdpi", key:"-tvdpi", width:32, height:32 },
+	{ type:"android", category:"Notification icons", name:"hdpi", key:"-hdpi", width:36, height:36 },
+	{ type:"android", category:"Notification icons", name:"xhdpi", key:"-xhdpi", width:48, height:48 },
+	{ type:"android", category:"Notification icons", name:"xxhdpi", key:"-xxhdpi", width:72, height:72 },
+	{ type:"android", category:"Notification icons", name:"xxxhdpi", key:"-xxxhdpi", width:96, height:96 }
 ];
 
 var iosExport = [
-	{
-		name: "@1x",
-		scaleFactor: 50,
-		type: "ios"
-	},
-	{
-		name: "@2x",
-		scaleFactor: 100,
-		type: "ios"
-	},
-	{
-		name: "@3x",
-		scaleFactor: 150,
-		type: "ios"
-	}
+	{ type:"ios", category:"", name:"Icon.png", key:"", width:57, height:57 },
+	{ type:"ios", category:"", name:"Icon@2x.png", key:"@2x", width:114, height:114 },
+	{ type:"ios", category:"", name:"Icon-Small.png", key:"-Small", width:29, height:29 },
+	{ type:"ios", category:"", name:"Icon-Small@2x.png", key:"-Small@2x", width:58, height:58 },
+	{ type:"ios", category:"", name:"Icon-Small@3x.png", key:"-Small@3x", width:87, height:87 },
+	{ type:"ios", category:"", name:"Icon-Small-40.png", key:"-Small-40", width:40, height:40 },
+	{ type:"ios", category:"", name:"Icon-Small-40@2x.png", key:"-Small-40@2x", width:80, height:80 },
+	{ type:"ios", category:"", name:"Icon-Small-40@3x.png", key:"-Small-40@3x", width:120, height:120 },
+	{ type:"ios", category:"", name:"Icon-Small-50.png", key:"-Small-50", width:50, height:50 },
+	{ type:"ios", category:"", name:"Icon-Small-50@2x.png", key:"-Small-50@2x", width:100, height:100 },
+	{ type:"ios", category:"", name:"Icon-60@2x.png", key:"-60@2x", width:120, height:120 },
+	{ type:"ios", category:"", name:"Icon-60@3x.png", key:"-60@3x", width:180, height:180 },
+	{ type:"ios", category:"", name:"Icon-72.png", key:"-72", width:72, height:72 },
+	{ type:"ios", category:"", name:"Icon-72@2x.png", key:"-72@2x", width:144, height:144 },
+	{ type:"ios", category:"", name:"Icon-76.png", key:"-76", width:76, height:76 },
+	{ type:"ios", category:"", name:"Icon-76@2x.png", key:"-76@2x", width:152, height:152 },
+	{ type:"ios", category:"", name:"iTunesArtwork.png", key:"iTunesArtwork", width:512, height:512 },
+	{ type:"ios", category:"", name:"iTunesArtwork@2x.png", key:"iTunesArtwork@2x", width:1024, height:1024 }
 ];
 
 var windowsExport = [
-	{
-		name: "scale-80",
-		scaleFactor: 80,
-		type: "windows"
-	},
-		{
-		name: "scale-100",
-		scaleFactor: 100,
-		type: "windows"
-	},
-	{
-		name: "scale-125",
-		scaleFactor: 125,
-		type: "windows"
-	},
-	{
-		name: "scale-150",
-		scaleFactor: 150,
-		type: "windows"
-	},
-	{
-		name: "scale-180",
-		scaleFactor: 180,
-		type: "windows"
-	},
-	{
-		name: "scale-200",
-		scaleFactor: 200,
-		type: "windows"
-	},
-	{
-		name: "scale-400",
-		scaleFactor: 400,
-		type: "windows"
-	}
+	{ type:"windows", category:"Small", name:"scale-100", key:"SmallTile.scale-100", width:71, height:71 },
+	{ type:"windows", category:"Small", name:"scale-125", key:"SmallTile.scale-125", width:89, height:89 },
+	{ type:"windows", category:"Small", name:"scale-150", key:"SmallTile.scale-150", width:107, height:107 },
+	{ type:"windows", category:"Small", name:"scale-200", key:"SmallTile.scale-200", width:142, height:142 },
+	{ type:"windows", category:"Small", name:"scale-400", key:"SmallTile.scale-400", width:284, height:284 },
+
+	{ type:"windows", category:"Medium", name:"scale-100", key:"MedTile.scale-100", width:150, height:150 },
+	{ type:"windows", category:"Medium", name:"scale-125", key:"MedTile.scale-125", width:188, height:188 },
+	{ type:"windows", category:"Medium", name:"scale-150", key:"MedTile.scale-150", width:225, height:225 },
+	{ type:"windows", category:"Medium", name:"scale-200", key:"MedTile.scale-200", width:300, height:300 },
+	{ type:"windows", category:"Medium", name:"scale-400", key:"MedTile.scale-400", width:600, height:600 },
+
+	{ type:"windows", category:"Wide", name:"scale-100", key:"WideTile.scale-100", width:310, height:150 },
+	{ type:"windows", category:"Wide", name:"scale-125", key:"WideTile.scale-125", width:388, height:188 },
+	{ type:"windows", category:"Wide", name:"scale-150", key:"WideTile.scale-150", width:465, height:225 },
+	{ type:"windows", category:"Wide", name:"scale-200", key:"WideTile.scale-200", width:620, height:300 },
+	{ type:"windows", category:"Wide", name:"scale-400", key:"WideTile.scale-400", width:1240, height:600 },
+
+	{ type:"windows", category:"Large", name:"scale-100", key:"LargeTile.scale-100", width:310, height:310 },
+	{ type:"windows", category:"Large", name:"scale-125", key:"LargeTile.scale-125", width:388, height:388 },
+	{ type:"windows", category:"Large", name:"scale-150", key:"LargeTile.scale-150", width:465, height:465 },
+	{ type:"windows", category:"Large", name:"scale-200", key:"LargeTile.scale-200", width:620, height:620 },
+	{ type:"windows", category:"Large", name:"scale-400", key:"LargeTile.scale-400", width:1240, height:1240 },
+
+	{ type:"windows", category:"App list", name:"scale-100", key:"LargeTile.scale-100", width:44, height:44 },
+	{ type:"windows", category:"App list", name:"scale-125", key:"LargeTile.scale-125", width:55, height:55 },
+	{ type:"windows", category:"App list", name:"scale-150", key:"LargeTile.scale-150", width:66, height:66 },
+	{ type:"windows", category:"App list", name:"scale-200", key:"LargeTile.scale-200", width:88, height:88 },
+	{ type:"windows", category:"App list", name:"scale-400", key:"LargeTile.scale-400", width:176, height:176 }
 ];
 
 var selectedExport = {};
