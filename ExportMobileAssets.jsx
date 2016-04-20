@@ -177,19 +177,24 @@ function createFilePanel(name, parent) {
 }
 
 function createArtboardPanel(name, parent){
-	 var groupArt = parent.add("panel", undefined, name);
+	var panel = parent.add("panel", undefined, name);
+	panel.orientation = 'row';
+	panel.alignChildren = 'left';
 
-	var artboardNames = [];
+	var tmpGroup;
 
 	for (var i = 0; i < document.artboards.length; i++) {
-		artboardNames[i] = document.artboards[i].name;
+		if(i % 20 == 0){
+			tmpGroup = panel.add("group"); 
+			tmpGroup.orientation = 'column';
+			tmpGroup.alignChildren = 'left';
+			generateCheckbox(tmpGroup, document.artboards[i]);
+		}
+		else {
+			generateCheckbox(tmpGroup, document.artboards[i]);
+		}
+		
 	}
-
-	var panel = groupArt.add("listbox", undefined, artboardNames);
-	panel.size = [200 , 350];
-
-	panel.onClick = function() {
-	};
 }
 
 function createOSTabPanel(parent, array){
