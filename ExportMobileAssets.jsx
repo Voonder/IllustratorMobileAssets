@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (c) 2016 Julien NORMAND - Voonder
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -155,12 +155,12 @@ if(document && folder) {
 function createFilePanel(name, parent) {
 	var panel = parent.add("panel", undefined, name);
 	panel.orientation = 'row';
-	panel.alignment = 'fill';
 
 	var fileLocationEditText = panel.add("edittext", undefined, "File destination");
 	fileLocationEditText.text = folder.fsName;
 	fileLocationEditText.enabled = false;
-	
+	fileLocationEditText.size = [677, 28];
+
 	var changePathButton = panel.add("button", undefined, "...");
 	changePathButton.size = [28, 28];
 
@@ -205,7 +205,6 @@ function createOSTabPanel(parent, array){
 			tmpGroup = parent.add("panel", undefined, array[i].category);
 			tmpGroup.orientation = 'column';
 			tmpGroup.alignChildren = 'left';
-			tmpGroup.margins = 16;
 			tmpGroup.alignment = 'fill';
 			
 			generateCheckbox(tmpGroup, array[i]);
