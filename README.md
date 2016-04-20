@@ -32,7 +32,7 @@ Code contributions are welcome! Please see [Contribution Guidelines](CONTRIBUTIN
 
 1. [Fork](https://github.com/Voonder/IllustratorMobileAssets/fork) the repository.
 2. Create a local clone of the repository.
-3. Create a local branch (see the [Rules](#rules) section)
+3. Create a local branch (see the [Rules](CONTRIBUTING.md#rules) section)
 4. Commit your code, and push the changes to your own repository.
 
 ## License
