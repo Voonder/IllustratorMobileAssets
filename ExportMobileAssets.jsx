@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright (c) 2016 Julien NORMAND - Voonder
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -107,6 +107,7 @@ var uwpExport = [
 ];
 
 var selectedExport = {};
+var selectedArtboards = {};
 
 var document = app.activeDocument;
 var folder = new Folder(document.path);
@@ -120,16 +121,22 @@ if(document && folder) {
 	createFilePanel("File destination", dialog);
 	// -----
 	
+	var groupMiddle = dialog.add("group");
+
+	// ----- Artboards panel
+	createArtboardPanel("Select artboards", groupMiddle);
+	// -----
+
 	// ----- OS table panel
-	var tpanel =dialog.add ("tabbedpanel");
+	var tpanel = groupMiddle.add("tabbedpanel");
 	
-	var androidTab = tpanel.add ("tab", undefined, "Android");
+	var androidTab = tpanel.add("tab", undefined, "Android");
 	androidTab.orientation = 'row';
 	androidTab.alignChildren = 'top';
-	var iosTab = tpanel.add ("tab", undefined, "iOS");
+	var iosTab = tpanel.add("tab", undefined, "iOS");
 	iosTab.orientation = 'row';
 	iosTab.alignChildren = 'top';
-	var uwpTab = tpanel.add ("tab", undefined, "Universal Windows Platform");
+	var uwpTab = tpanel.add("tab", undefined, "Universal Windows Platform");
 	uwpTab.orientation = 'row';
 	uwpTab.alignChildren = 'top';
 	
@@ -169,6 +176,22 @@ function createFilePanel(name, parent) {
 	};
 }
 
+function createArtboardPanel(name, parent){
+	 var groupArt = parent.add("panel", undefined, name);
+
+	var artboardNames = [];
+
+	for (var i = 0; i < document.artboards.length; i++) {
+		artboardNames[i] = document.artboards[i].name;
+	}
+
+	var panel = groupArt.add("listbox", undefined, artboardNames);
+	panel.size = [200 , 350];
+
+	panel.onClick = function() {
+	};
+}
+
 function createOSTabPanel(parent, array){
 	var tmpCategory = "";
 	var tmpGroup;
@@ -179,17 +202,11 @@ function createOSTabPanel(parent, array){
 		}
 		else{
 			tmpCategory = array[i].category;
-			tmpGroup = parent.add("group");
+			tmpGroup = parent.add("panel", undefined, array[i].category);
 			tmpGroup.orientation = 'column';
 			tmpGroup.alignChildren = 'left';
 			tmpGroup.margins = 16;
-			
-			tmpGroup.add("statictext", undefined, array[i].category);
-			
-			if(array[i].category !== "Others" && array[i].category !== "App list"){
-				tmpGroup.separator =parent.add ("panel");
-				tmpGroup.separator.alignment = 'fill';
-			}
+			tmpGroup.alignment = 'fill';
 			
 			generateCheckbox(tmpGroup, array[i]);
 		}
