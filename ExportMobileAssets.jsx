@@ -193,7 +193,7 @@ function createFilePanel(name, parent) {
 			fileLocationEditText.text = folder.fsName;
 		}
 		else {
-			//alert("Cannot change current path");
+			////alert("Cannot change current path");
 		}
 	};
 }
@@ -201,6 +201,7 @@ function createFilePanel(name, parent) {
 function createArtboardPanel(name, parent){
 	var panel = parent.add("panel", undefined, name);
 	panel.orientation = 'row';
+	panel.minimumSize.height = 362;
 	panel.alignChildren = 'left';
 
 	var tmpGroup;
@@ -246,20 +247,20 @@ function generateCheckbox(parent, item, array) {
 		if (this.value) {
 			if(array === selectedArtboards) {
 				array[this.item.name] = this.item;
-				alert("added: " + this.item.name);
+				//alert("added: " + this.item.name);
 			}
 			else if(array === selectedExport) {
 				array[this.item.key] = this.item;
-				alert("added: " + this.item.key);
+				//alert("added: " + this.item.key);
 			}
 		} else {
 			if(array === selectedArtboards) {
 				delete array[this.item.name];
-				alert("added: " + this.item.name);
+				//alert("added: " + this.item.name);
 			}
 			else if(array === selectedExport) {
 				delete array[this.item.key];
-				alert("added: " + this.item.key);
+				//alert("added: " + this.item.key);
 			}
 		}
 	};
@@ -272,10 +273,117 @@ function createButtonPanel(parent) {
 	var cancelButton = panel.add("button", undefined, "Cancel");
 
 	exportButton.onClick = function() {
-		this.parent.parent.close();
+		var lengthExport = 0;
+		var lengthArtboards = 0;
+
+		for(var i in selectedExport) lengthExport++;
+		for(var j in selectedArtboards) lengthArtboards++;
+
+		if(lengthExport === 0) {
+			alert("Please select export sizes.");
+		} else if (lengthArtboards === 0){
+			alert("Please select artboards.");
+		}
+		else {
+			for (var key in selectedExport) {
+				if (selectedExport.hasOwnProperty(key)) {
+					var item = selectedExport[key];
+					exportToPNG24File(item);
+				}
+			}
+			this.parent.parent.close();
+		}
 	};
 
 	cancelButton.onClick = function() {
 		this.parent.parent.close();
 	};
+}
+
+function exportToPNG24File(item){
+	var folderDestination;
+
+	if (item.type === "android") {
+		if(androidCategory[item.category] === "Launcher Icon") {
+			folderDestination = new Folder(folder.fsName + "/mipmap-" + item.name);
+		}
+		else if (androidCategory[item.category] === "Others") {
+			folderDestination = new Folder(folder.fsName);
+		}
+		else {
+			folderDestination = new Folder(folder.fsName + "/drawable-" + item.name);
+		}
+	} else if (item.type === "ios") {
+		folderDestination = new Folder(folder.fsName + "/iOS");
+	} else if (item.type === "windows") {
+		if(uwpCategory[item.category] === "App list") {
+			folderDestination = new Folder(folder.fsName + "/UWP/AppList");
+		} else {
+			folderDestination = new Folder(folder.fsName + "/UWP");
+		}
+	} else {
+		//alert("Error during exporting file");
+	}
+
+	if (!folderDestination.exists) {
+		folderDestination.create();
+	}
+
+	for (var abName in selectedArtboards) {
+		if (!selectedArtboards.hasOwnProperty(abName)) {
+			continue;
+		}
+		ab = selectedArtboards[abName];
+		document.artboards.setActiveArtboardIndex(ab.index);
+
+		if(ab.name.charAt(0)=="!"){
+			continue;
+			alert("Error");
+		}
+
+		if(item.type === "android") {
+			switch(item.category) {
+				case 0:
+					file = new File(folderDestination.fsName + "/ic_launcher.png");
+					break;
+				case 1:
+					file = new File(folderDestination.fsName + "/ic_action_" + ab.name + ".png");
+					break;
+				case 2:
+					file = new File(folderDestination.fsName + "/ic_menu_" + ab.name + ".png");
+					break;
+				case 3:
+					file = new File(folderDestination.fsName + "/ic_notif_" + ab.name + ".png");
+					break;
+				default:
+					file = new File(folderDestination.fsName + "/" + ab.name + ".png");
+			}
+			
+		}
+		else if(item.type === "ios") {
+			if(iosCategory[item.category] === "Others") {
+				file = new File(folderDestination.fsName + "/" + ab.name + "-" + item.name);
+			} else {
+				file = new File(folderDestination.fsName + "/" + ab.name + "-" + item.name + ".png");
+			}
+		}
+		else if(item.type === "windows") {
+			if(uwpCategory[item.category] === "App list") {
+				file = new File(folderDestination.fsName + "/" + ab.name + "LargeTile." + item.name + ".png");
+			} else {
+				file = new File(folderDestination.fsName + "/" + ab.name + uwpCategory[item.category] + "." + item.name + ".png");
+			}
+			
+		}
+
+		options = new ExportOptionsPNG24();
+		options.transparency = true;
+		options.artBoardClipping = true;
+		options.antiAliasing = true;
+		options.horizontalScale = 100 * (item.width / document.width);
+		options.verticalScale = 100 * (item.height / document.height);
+
+		document.exportFile(file, ExportType.PNG24, options);
+		//alert("Generating PNG24 finish");
+	}
 }
