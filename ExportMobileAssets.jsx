@@ -16,8 +16,8 @@
 #target illustrator
 
 var androidFolderName = [
-    { name:"drawable" },
-    { name:"mipmap" }
+    "drawable",
+    "mipmap"
 ];
 
 var androidExport = [
@@ -32,14 +32,14 @@ var androidExport = [
 ];
 
 var iosSuffix = [
-    { name:"Small" },
-    { name:"Small-40" },
-    { name:"Small-50" },
-    { name:"" },
-    { name:"60" },
-    { name: "72" },
-    { name:"76" },
-    { name:"iTunesArtwork" }
+    "Small",
+    "Small-40",
+    "Small-50",
+    "",
+    "60",
+    "72",
+    "76",
+    "iTunesArtwork"
 ];
 
 var iosExport = [
@@ -49,10 +49,10 @@ var iosExport = [
 ];
 
 var uwpSuffix = [
-    { name:"SmallTile" },
-    { name:"MediumTile" },
-    { name:"WideTile" },
-    { name:"LargeTile" }
+    "SmallTile",
+    "MediumTile",
+    "WideTile",
+    "LargeTile"
 ];
 
 var uwpExport = [
@@ -69,6 +69,10 @@ var selectedArtboardsOptions = {};
 
 var document = app.activeDocument;
 var folder = new Folder(document.path);
+
+var androidMipmapFolder = false;
+var iosFileSuffixName = "";
+var uwpFileSuffixName = "";
 
 if (document && folder) {
     var dialog = new Window("dialog", "Export assets to ...");
@@ -97,10 +101,9 @@ if (document && folder) {
     uwpTab.orientation = 'row';
     uwpTab.alignChildren = 'top';
 
-    createOSAndroidTab(androidTab);
-    //createOSTabPanel(androidTab, androidFolderName, androidExport);
-    createOSTabPanel(iosTab, iosType, iosExport);
-    createOSTabPanel(uwpTab, uwpType, uwpExport);
+    createOSTabPanel(androidTab, "android", "Folder", androidFolderName.sort(), androidExport);
+    createOSTabPanel(iosTab, "ios", "File suffix", iosSuffix.sort(), iosExport);
+    createOSTabPanel(uwpTab, "windows", "File suffix", uwpSuffix.sort(), uwpExport);
     // -----
 
     // ----- Button
@@ -156,22 +159,48 @@ function createArtboardPanel(name, parent) {
     }
 }
 
-function createOSTabPanel(parent, array) {
-    var tmpCategory;
-    var tmpGroup;
+function createOSTabPanel(parent, os, typeName, arrayType, arrayExport){
+    var group = parent.add("group");
+    group.orientation = 'row';
+    group.alignChildren = 'top';
 
-    for (var i = 0; i < array.length; i++) {
-        if (array[i].category === tmpCategory) {
-            generateCheckbox(tmpGroup, array[i], selectedExport);
+    var panelType = group.add("panel", undefined, typeName);
+    panelType.alignChildren = 'left';
+    var panelExport = group.add("panel", undefined, "Size");
+    panelExport.alignChildren = 'left';
+
+    for (var i = 0; i < arrayType.length; i++) {
+        generateRadioButton(panelType, arrayType[i], os);
+    }
+
+    for (var j = 0; j < arrayExport.length; j++) {
+        generateCheckbox(panelExport, arrayExport[j], selectedExport);
+    }
+}
+
+function generateRadioButton(parent, name, os){
+    var rad = parent.add("radiobutton", undefined, name);
+
+    if (os === "android") {
+        if(name === "drawable") rad.value = true;
+    }
+    else if(os === "ios"){
+        if(name === "") rad.value = true;
+    }
+
+    rad.onClick = function(){
+        if (os === "android") {
+            if(name === "drawable") androidMipmapFolder = false;
+            if(name === "mipmap") androidMipmapFolder = true;
+        }
+        else if(os === "ios"){
+            iosFileSuffixName = name;
+        }
+        else if (os === "windows"){
+            uwpFileSuffixName = name;
         }
         else {
-            tmpCategory = array[i].category;
-            tmpGroup = parent.add("panel", undefined, androidCategory[array[i].category]);
-            tmpGroup.orientation = 'column';
-            tmpGroup.alignChildren = 'left';
-            tmpGroup.alignment = 'fill';
-
-            generateCheckbox(tmpGroup, array[i], selectedExport);
+            alert("Error in the generation of radio button, please add the \"OS\" in the method");
         }
     }
 }
