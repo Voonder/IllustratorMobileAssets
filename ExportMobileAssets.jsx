@@ -64,7 +64,7 @@ var uwpExport = [
 ];
 
 var selectedExport = {};
-var selectedArtboards = {};
+var selectedType = {};
 var selectedArtboardsOptions = {};
 
 var document = app.activeDocument;
@@ -120,7 +120,6 @@ function createFilePanel(name, parent) {
     var fileLocationEditText = panel.add("edittext", undefined, "File destination");
     fileLocationEditText.text = folder.fsName;
     fileLocationEditText.enabled = false;
-    fileLocationEditText.size = [677, 28];
 
     var changePathButton = panel.add("button", undefined, "...");
     changePathButton.size = [28, 28];
@@ -140,7 +139,6 @@ function createFilePanel(name, parent) {
 function createArtboardPanel(name, parent) {
     var panel = parent.add("panel", undefined, name);
     panel.orientation = 'row';
-    panel.minimumSize.height = 362;
     panel.alignChildren = 'left';
 
     var tmpGroup;
@@ -175,6 +173,29 @@ function createOSTabPanel(parent, os, typeName, arrayType, arrayExport){
 
     for (var j = 0; j < arrayExport.length; j++) {
         generateCheckbox(panelExport, arrayExport[j], selectedExport);
+    }
+
+    var btnAll = panelExport.add("button", undefined, "Select All");
+    btnAll.alignment = 'center';
+    btnAll.onClick = function() {
+        var newValue;
+        if(btnAll.text === "Select All"){
+            newValue = true;
+            btnAll.text = "Deselect All";
+        }
+        else{
+            newValue = false;
+            btnAll.text = "Select All";
+        }
+        var children = this.parent.children;
+        var child;
+        for (var i = 0; i < children.length; i++) {
+            child = children[i];
+            if (child instanceof Checkbox) {
+                child.value = newValue;
+                selectedExport[child.item.name] = child.item;
+            }
+        }
     }
 }
 
@@ -235,10 +256,10 @@ function createButtonPanel(parent) {
         for (var j in selectedArtboardsOptions) lengthArtboards++;
 
         if (lengthExport === 0) {
-            //alert("Please select export sizes.");
+            alert("Please select export sizes.");
         }
         else if (lengthArtboards === 0) {
-            //alert("Please select artboards.");
+            alert("Please select artboards.");
         }
         else {
             for (var key in selectedExport) {
