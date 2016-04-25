@@ -65,6 +65,7 @@ var uwpExport = [
 
 var selectedExport = {};
 var selectedArtboards = {};
+var selectedArtboardsOptions = {};
 
 var document = app.activeDocument;
 var folder = new Folder(document.path);
@@ -96,9 +97,10 @@ if (document && folder) {
     uwpTab.orientation = 'row';
     uwpTab.alignChildren = 'top';
 
-    createOSTabPanel(androidTab, androidExport);
-    createOSTabPanel(iosTab, iosExport);
-    createOSTabPanel(uwpTab, uwpExport);
+    createOSAndroidTab(androidTab);
+    //createOSTabPanel(androidTab, androidFolderName, androidExport);
+    createOSTabPanel(iosTab, iosType, iosExport);
+    createOSTabPanel(uwpTab, uwpType, uwpExport);
     // -----
 
     // ----- Button
@@ -145,10 +147,10 @@ function createArtboardPanel(name, parent) {
             tmpGroup = panel.add("group");
             tmpGroup.orientation = 'column';
             tmpGroup.alignChildren = 'left';
-            generateCheckbox(tmpGroup, document.artboards[i], selectedArtboards);
+            generateCheckbox(tmpGroup, document.artboards[i], selectedArtboardsOptions);
         }
         else {
-            generateCheckbox(tmpGroup, document.artboards[i], selectedArtboards);
+            generateCheckbox(tmpGroup, document.artboards[i], selectedArtboardsOptions);
         }
 
     }
@@ -177,26 +179,15 @@ function createOSTabPanel(parent, array) {
 function generateCheckbox(parent, item, array) {
     var cb = parent.add("checkbox", undefined, "\u00A0" + item.name);
     cb.item = item;
+    cb.item.index = i;  // save the index, to be used later in setActiveArtboardIndex
     cb.onClick = function() {
         if (this.value) {
-            if (array === selectedArtboards) {
-                array[this.item.name] = this.item;
-                //alert("added: " + this.item.name);
-            }
-            else if (array === selectedExport) {
-                array[this.item.key] = this.item;
-                //alert("added: " + this.item.key);
-            }
+            array[this.item.name] = this.item;
+            //alert("added: " + this.item.name);
         }
         else {
-            if (array === selectedArtboards) {
-                delete array[this.item.name];
-                //alert("added: " + this.item.name);
-            }
-            else if (array === selectedExport) {
-                delete array[this.item.key];
-                //alert("added: " + this.item.key);
-            }
+            delete array[this.item.name];
+            //alert("added: " + this.item.name);
         }
     };
 }
@@ -212,13 +203,13 @@ function createButtonPanel(parent) {
         var lengthArtboards = 0;
 
         for (var i in selectedExport) lengthExport++;
-        for (var j in selectedArtboards) lengthArtboards++;
+        for (var j in selectedArtboardsOptions) lengthArtboards++;
 
         if (lengthExport === 0) {
-            alert("Please select export sizes.");
+            //alert("Please select export sizes.");
         }
         else if (lengthArtboards === 0) {
-            alert("Please select artboards.");
+            //alert("Please select artboards.");
         }
         else {
             for (var key in selectedExport) {
@@ -237,93 +228,53 @@ function createButtonPanel(parent) {
 }
 
 function exportToPNG24File(item) {
-    var folderDestination;
+    var ab, file, options, expFolder;
 
     if (item.type === "android") {
-        if (androidCategory[item.category] === "Launcher Icon") {
-            folderDestination = new Folder(folder.fsName + "/mipmap-" + item.name);
-        }
-        else if (androidCategory[item.category] === "Others") {
-            folderDestination = new Folder(folder.fsName);
-        }
-        else {
-            folderDestination = new Folder(folder.fsName + "/drawable-" + item.name);
-        }
+        expFolder = new Folder(folder.fsName + "/drawable-" + item.name);
     }
     else if (item.type === "ios") {
-        folderDestination = new Folder(folder.fsName + "/iOS");
+        expFolder = new Folder(folder.fsName + "/iOS");
     }
     else if (item.type === "windows") {
-        if (uwpCategory[item.category] === "App list") {
-            folderDestination = new Folder(folder.fsName + "/UWP/AppList");
-        }
-        else {
-            folderDestination = new Folder(folder.fsName + "/UWP");
-        }
+        expFolder = new Folder(folder.fsName + "/UWP");
     }
     else {
         //alert("Error during exporting file");
     }
 
-    if (!folderDestination.exists) {
-        folderDestination.create();
+    if (!expFolder.exists) {
+        expFolder.create();
     }
 
-    for (var abName in selectedArtboards) {
-        if (!selectedArtboards.hasOwnProperty(abName)) {
+    for (var abName in selectedArtboardsOptions) {
+        if (!selectedArtboardsOptions.hasOwnProperty(abName)) {
             continue;
         }
-        ab = selectedArtboards[abName];
+        ab = selectedArtboardsOptions[abName];
         document.artboards.setActiveArtboardIndex(ab.index);
 
         if (ab.name.charAt(0) == "!") {
             continue;
-            alert("Error");
+            //alert("Error");
         }
 
         if (item.type === "android") {
-            switch (item.category) {
-                case 0:
-                    file = new File(folderDestination.fsName + "/ic_launcher.png");
-                    break;
-                case 1:
-                    file = new File(folderDestination.fsName + "/ic_action_" + ab.name + ".png");
-                    break;
-                case 2:
-                    file = new File(folderDestination.fsName + "/ic_menu_" + ab.name + ".png");
-                    break;
-                case 3:
-                    file = new File(folderDestination.fsName + "/ic_notif_" + ab.name + ".png");
-                    break;
-                default:
-                    file = new File(folderDestination.fsName + "/" + ab.name + ".png");
-            }
-
+            file = new File(expFolder.fsName + "/" + ab.name + ".png");
         }
         else if (item.type === "ios") {
-            if (iosCategory[item.category] === "Others") {
-                file = new File(folderDestination.fsName + "/" + ab.name + "-" + item.name);
-            }
-            else {
-                file = new File(folderDestination.fsName + "/" + ab.name + "-" + item.name + ".png");
-            }
+            file = new File(expFolder.fsName + "/" + ab.name + "-" + item.name + ".png");
         }
         else if (item.type === "windows") {
-            if (uwpCategory[item.category] === "App list") {
-                file = new File(folderDestination.fsName + "/" + ab.name + "LargeTile." + item.name + ".png");
-            }
-            else {
-                file = new File(folderDestination.fsName + "/" + ab.name + uwpCategory[item.category] + "." + item.name + ".png");
-            }
-
+            file = new File(expFolder.fsName + "/" + ab.name + "." + item.name + ".png");
         }
 
         options = new ExportOptionsPNG24();
         options.transparency = true;
         options.artBoardClipping = true;
         options.antiAliasing = true;
-        options.horizontalScale = 100 * (item.width / document.width);
-        options.verticalScale = 100 * (item.height / document.height);
+        options.verticalScale = item.scaleFactor;
+        options.horizontalScale = item.scaleFactor;
 
         document.exportFile(file, ExportType.PNG24, options);
         //alert("Generating PNG24 finish");
