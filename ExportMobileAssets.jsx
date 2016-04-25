@@ -15,117 +15,52 @@
  */
 #target illustrator
 
-var androidCategory = [
-    "Launcher icon",
-    "Action bar, Dialog & Tab icons",
-    "Small Contextual icons",
-    "Notification icons",
-    "Others"
+var androidFolderName = [
+    { name:"drawable" },
+    { name:"mipmap" }
 ];
 
 var androidExport = [
-	{ type:"android", category:0, key:"0-ldpi", name:"ldpi", width:36, height:36 },
-	{ type:"android", category:0, key:"0-mdpi", name:"mdpi", width:48, height:48 },
-	{ type:"android", category:0, key:"0-tvdpi", name:"tvdpi", width:64, height:64 },
-	{ type:"android", category:0, key:"0-hdpi", name:"hdpi", width:72, height:72 },
-	{ type:"android", category:0, key:"0-xhdpi", name:"xhdpi", width:96, height:96 },
-	{ type:"android", category:0, key:"0-xxhdpi", name:"xxhdpi", width:144, height:144 },
-	{ type:"android", category:0, key:"0-xxxhdpi", name:"xxxhdpi", width:192, height:192 },
-
-	{ type:"android", category:1, key:"1-ldpi", name:"ldpi", width:24, height:24 },
-	{ type:"android", category:1, key:"1-mdpi", name:"mdpi", width:32, height:32 },
-	{ type:"android", category:1, key:"1-tvdpi", name:"tvdpi", width:42, height:42 },
-	{ type:"android", category:1, key:"1-hdpi", name:"hdpi", width:48, height:48 },
-	{ type:"android", category:1, key:"1-xhdpi", name:"xhdpi", width:64, height:64 },
-	{ type:"android", category:1, key:"1-xxhdpi", name:"xxhdpi", width:96, height:96 },
-	{ type:"android", category:1, key:"1-xxxhdpi", name:"xxxhdpi", width:128, height:128 },
-
-	{ type:"android", category:2, key:"2-ldpi", name:"ldpi", width:12, height:12 },
-	{ type:"android", category:2, key:"2-mdpi", name:"mdpi", width:16, height:16 },
-	{ type:"android", category:2, key:"2-tvdpi", name:"tvdpi", width:21, height:21 },
-	{ type:"android", category:2, key:"2-hdpi", name:"hdpi", width:24, height:24 },
-	{ type:"android", category:2, key:"2-xhdpi", name:"xhdpi", width:32, height:64 },
-	{ type:"android", category:2, key:"2-xxhdpi", name:"xxhdpi", width:48, height:48 },
-	{ type:"android", category:2, key:"2-xxxhdpi", name:"xxxhdpi", width:64, height:64 },
-
-	{ type:"android", category:3, key:"3-ldpi", name:"ldpi", width:18, height:18 },
-	{ type:"android", category:3, key:"3-mdpi", name:"mdpi", width:24, height:24 },
-	{ type:"android", category:3, key:"3-tvdpi", name:"tvdpi", width:32, height:32 },
-	{ type:"android", category:3, key:"3-hdpi", name:"hdpi", width:36, height:36 },
-	{ type:"android", category:3, key:"3-xhdpi", name:"xhdpi", width:48, height:48 },
-	{ type:"android", category:3, key:"3-xxhdpi", name:"xxhdpi", width:72, height:72 },
-	{ type:"android", category:3, key:"3-xxxhdpi", name:"xxxhdpi", width:96, height:96 },
- 
-	{ type:"android", category:4, key:"web", name:"web", width:512, height:512 }
+    { scaleFactor:18.75, type:"android", name:"ldpi" },
+    { scaleFactor:25, type:"android", name:"mdpi" },
+    { scaleFactor:33.33, type:"android", name:"tvdpi" },
+    { scaleFactor:37.5, type:"android", name:"hdpi" },
+    { scaleFactor:50, type:"android", name:"xhdpi" },
+    { scaleFactor:75, type:"android", name:"xxhdpi" },
+    { scaleFactor:100, type:"android", name:"xxxhdpi" },
+    { scaleFactor:266.66, type:"android", name:"web" }
 ];
 
-var iosCategory = [
-    "iOS 7 and above",
-    "iOS 6.1 and earlier",
-    "Others"
+var iosSuffix = [
+    { name:"Small" },
+    { name:"Small-40" },
+    { name:"Small-50" },
+    { name:"" },
+    { name:"60" },
+    { name: "72" },
+    { name:"76" },
+    { name:"iTunesArtwork" }
 ];
 
 var iosExport = [
-	{ type:"ios", category:0, key:"Small", name:"Small", width:29, height:29 },
-	{ type:"ios", category:0, key:"Small@2x", name:"Small@2x", width:58, height:58 },
-	{ type:"ios", category:0, key:"Small@3x", name:"Small@3x", width:87, height:87 },
-	{ type:"ios", category:0, key:"Small-40", name:"Small-40", width:40, height:40 },
-	{ type:"ios", category:0, key:"Small-40@2x", name:"Small-40@2x", width:80, height:80 },
-	{ type:"ios", category:0, key:"Small-40@3x", name:"Small-40@3x", width:120, height:120 },
-	{ type:"ios", category:0, key:"60@2x", name:"60@2x", width:120, height:120 },
-	{ type:"ios", category:0, key:"60@3x", name:"60@3x", width:180, height:180 },
-	{ type:"ios", category:0, key:"76", name:"76", width:76, height:76 },
-	{ type:"ios", category:0, key:"76@2x", name:"76@2x", width:152, height:152 },
-
-	{ type:"ios", category:1, key:"", name:"", width:57, height:57 },
-	{ type:"ios", category:1, key:"@2x", name:"@2x", width:114, height:114 },
-	{ type:"ios", category:1, key:"72", name:"72", width:72, height:72 },
-	{ type:"ios", category:1, key:"72@2x", name:"72@2x", width:144, height:144 },
-	{ type:"ios", category:1, key:"Small-50", name:"Small-50", width:50, height:50 },
-	{ type:"ios", category:1, key:"Small-50@2x", name:"Small-50@2x", width:100, height:100 },
-	
-	{ type:"ios", category:2, key:"iTunesArtwork", name:"iTunesArtwork", width:512, height:512 },
-	{ type:"ios", category:2, key:"iTunesArtwork@2x", name:"iTunesArtwork@2x", width:1024, height:1024 }
+    { scaleFactor:50, type:"ios", name:"" },
+    { scaleFactor:100, type:"ios", name:"@2x" },
+    { scaleFactor:150, type:"ios", name:"@3x" }
 ];
 
-var uwpCategory = [
-    "SmallTile",
-    "MediumTile",
-    "WideTile",
-    "LargeTile",
-    "App list"
+var uwpSuffix = [
+    { name:"SmallTile" },
+    { name:"MediumTile" },
+    { name:"WideTile" },
+    { name:"LargeTile" }
 ];
 
 var uwpExport = [
-	{ type:"windows", category:0, key:"0-scale-100", name:"scale-100", width:71, height:71 },
-	{ type:"windows", category:0, key:"0-scale-125", name:"scale-125", width:89, height:89 },
-	{ type:"windows", category:0, key:"0-scale-150", name:"scale-150", width:107, height:107 },
-	{ type:"windows", category:0, key:"0-scale-200", name:"scale-200", width:142, height:142 },
-	{ type:"windows", category:0, key:"0-scale-400", name:"scale-400", width:284, height:284 },
-
-	{ type:"windows", category:1, key:"1-scale-100", name:"scale-100", width:150, height:150 },
-	{ type:"windows", category:1, key:"1-scale-125", name:"scale-125", width:188, height:188 },
-	{ type:"windows", category:1, key:"1-scale-150", name:"scale-150", width:225, height:225 },
-	{ type:"windows", category:1, key:"1-scale-200", name:"scale-200", width:300, height:300 },
-	{ type:"windows", category:1, key:"1-scale-400", name:"scale-400", width:600, height:600 },
-
-	{ type:"windows", category:2, key:"2-scale-100", name:"scale-100", width:310, height:150 },
-	{ type:"windows", category:2, key:"2-scale-125", name:"scale-125", width:388, height:188 },
-	{ type:"windows", category:2, key:"2-scale-150", name:"scale-150", width:465, height:225 },
-	{ type:"windows", category:2, key:"2-scale-200", name:"scale-200", width:620, height:300 },
-	{ type:"windows", category:2, key:"2-scale-400", name:"scale-400", width:1240, height:600 },
-
-	{ type:"windows", category:3, key:"3-scale-100", name:"scale-100", width:310, height:310 },
-	{ type:"windows", category:3, key:"3-scale-125", name:"scale-125", width:388, height:388 },
-	{ type:"windows", category:3, key:"3-scale-150", name:"scale-150", width:465, height:465 },
-	{ type:"windows", category:3, key:"3-scale-200", name:"scale-200", width:620, height:620 },
-	{ type:"windows", category:3, key:"3-scale-400", name:"scale-400", width:1240, height:1240 },
-
-	{ type:"windows", category:4, key:"4-scale-100", name:"scale-100", width:44, height:44 },
-	{ type:"windows", category:4, key:"4-scale-125", name:"scale-125", width:55, height:55 },
-	{ type:"windows", category:4, key:"4-scale-150", name:"scale-150", width:66, height:66 },
-	{ type:"windows", category:4, key:"4-scale-200", name:"scale-200", width:88, height:88 },
-	{ type:"windows", category:4, key:"4-scale-400", name:"scale-400", width:176, height:176 }
+    { scaleFactor:100, type:"windows", name:"scale-100" },
+    { scaleFactor:125, type:"windows", name:"scale-125" },
+    { scaleFactor:150, type:"windows", name:"scale-150" },
+    { scaleFactor:200, type:"windows", name:"scale-200" },
+    { scaleFactor:400, type:"windows", name:"scale-400" },
 ];
 
 var selectedExport = {};
