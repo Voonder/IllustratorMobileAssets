@@ -63,8 +63,8 @@ var uwpExport = [
     { type:"Universal Windows Platform", name:"scale-400", scaleFactor:400 },
 ];
 
-var AndroidFolderName = "";
-var iOSFileSuffixName = "";
+var androidFolderName = "";
+var iosFileSuffixName = "";
 var uwpFileSuffixName = "";
 
 var selectedExport = {};
