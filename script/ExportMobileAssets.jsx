@@ -74,21 +74,21 @@ var document = app.activeDocument;
 var folder = new Folder(document.path);
 
 if (document && folder) {
-    var dialog = new Window("dialog", "Export assets to ...");
+    var dialog = new Window('dialog', "Export assets to ...");
     dialog.alignChildren = 'right';
 
     // ----- Folder panel
     createFilePanel("File destination", dialog);
     // -----
 
-    var group = dialog.add("group");
+    var group = dialog.add('group');
 
     // ----- Artboards panel
     createArtboardPanel("Select artboards", group);
     // -----
 
     // ----- OS table panel
-    var tpanel = group.add("tabbedpanel");
+    var tpanel = group.add('tabbedpanel');
 
     createOSTabPanel(tpanel, "Android", "Folder", androidFolder.sort(), androidExport, androidFolderName);
     createOSTabPanel(tpanel, "iOS", "File suffix", iosSuffix.sort(), iosExport, iosFileSuffixName);
@@ -103,15 +103,15 @@ if (document && folder) {
 }
 
 function createFilePanel(name, parent) {
-    var panel = parent.add("panel", undefined, name);
+    var panel = parent.add('panel', undefined, name);
     panel.orientation = 'row';
 
-    var folderEdit = panel.add("edittext", undefined, "File destination");
+    var folderEdit = panel.add('edittext', undefined, "File destination");
     folderEdit.text = folder.fsName;
     folderEdit.size = [400, 28];
     folderEdit.enabled = false;
 
-    var pathButton = panel.add("button", undefined, "...");
+    var pathButton = panel.add('button', undefined, "...");
     pathButton.size = [28, 28];
 
     pathButton.onClick = function() {
@@ -126,19 +126,19 @@ function createFilePanel(name, parent) {
 }
 
 function createArtboardPanel(name, parent) {
-    var panel = parent.add("panel", undefined, name);
+    var panel = parent.add('panel', undefined, name);
     panel.orientation = 'row';
     panel.alignChildren = 'left';
 
-    var group = panel.add("group");
+    var group = panel.add('group');
     group.orientation = 'column';
     group.alignChildren = 'left';
 
     for (var i = 0; i < document.artboards.length; i++) {
-        if (i === 0){
+        if (i === 0) {
             generateCheckbox(group, document.artboards[i], selectedArtboards, i);
         } else if (i % 15 == 0) {
-            group = panel.add("group");
+            group = panel.add('group');
             group.orientation = 'column';
             group.alignChildren = 'left';
             generateCheckbox(group, document.artboards[i], selectedArtboards, i);
@@ -149,13 +149,13 @@ function createArtboardPanel(name, parent) {
 }
 
 function createOSTabPanel(parent, os, name, arrayType, arrayExport) {
-    var tab = parent.add("tab", undefined, os);
+    var tab = parent.add('tab', undefined, os);
     tab.orientation = 'row';
     tab.alignChildren = 'top';
 
-    var typePanel = tab.add("panel", undefined, name);
+    var typePanel = tab.add('panel', undefined, name);
     typePanel.alignChildren = 'left';
-    var exportPanel = tab.add("panel", undefined, "Size");
+    var exportPanel = tab.add('panel', undefined, "Size");
     exportPanel.alignChildren = 'left';
 
     for (var i = 0; i < arrayType.length; i++) {
@@ -166,7 +166,7 @@ function createOSTabPanel(parent, os, name, arrayType, arrayExport) {
         generateCheckbox(exportPanel, arrayExport[j], selectedExport, j);
     }
 
-    var button = exportPanel.add("button", undefined, "Select All");
+    var button = exportPanel.add('button', undefined, "Select All");
     button.alignment = 'center';
     button.onClick = function() {
         var newValue;
@@ -190,7 +190,7 @@ function createOSTabPanel(parent, os, name, arrayType, arrayExport) {
 }
 
 function generateRadioButton(parent, os, name) {
-    var rad = parent.add("radiobutton", undefined, name);
+    var rad = parent.add('radiobutton', undefined, name);
 
     if (os === "Android") {
         if (name === "drawable") rad.value = true;
@@ -198,12 +198,12 @@ function generateRadioButton(parent, os, name) {
         if (name === "") rad.value = true;
     }
 
-    rad.onClick = function(){
+    rad.onClick = function() {
         if (os === "Android") {
             androidFolderName = name;
-        } else if (os === "iOS"){
+        } else if (os === "iOS") {
             iosFileSuffixName = name;
-        } else if (os === "Universal Windows Platform"){
+        } else if (os === "Universal Windows Platform") {
             uwpFileSuffixName = name;
         }
         //alert("change to: " + name);
@@ -211,10 +211,10 @@ function generateRadioButton(parent, os, name) {
 }
 
 function generateCheckbox(parent, item, array, index) {
-    var cb = parent.add("checkbox", undefined, "\u00A0" + item.name);
+    var cb = parent.add('checkbox', undefined, "\u00A0" + item.name);
     cb.item = item;
     cb.item.index = index; // save the index, to be used later in setActiveArtboardIndex
-    
+
     cb.onClick = function() {
         if (this.value) {
             array[this.item.name] = this.item;
@@ -227,11 +227,11 @@ function generateCheckbox(parent, item, array, index) {
 }
 
 function createButtonPanel(parent) {
-    var panel = parent.add("group");
+    var panel = parent.add('group');
     panel.alignChildren = 'right';
 
-    var exportButton = panel.add("button", undefined, "Export");
-    var cancelButton = panel.add("button", undefined, "Cancel");
+    var exportButton = panel.add('button', undefined, "Export");
+    var cancelButton = panel.add('button', undefined, "Cancel");
 
     exportButton.onClick = function() {
         var lengthExport = 0;
@@ -247,11 +247,11 @@ function createButtonPanel(parent) {
         } else {
             var totalExport = lengthExport * lengthArtboards;
             var countExport = 0;
-            
+
             this.parent.parent.close();
-            var progressDialog = new Window("palette", "Export assets to...");
-            var completedTxt = progressDialog.add("statictext", undefined, "Exporting in progress: " + countExport + "/" + totalExport);
-            var progressbar = progressDialog.add("progressbar", undefined, countExport, totalExport);
+            var progressDialog = new Window('palette', "Export assets to...");
+            var completedTxt = progressDialog.add('statictext', undefined, "Exporting in progress: " + countExport + "/" + totalExport);
+            var progressbar = progressDialog.add('progressbar', undefined, countExport, totalExport);
             progressbar.preferredSize = [300, 20];
             progressDialog.show();
 
