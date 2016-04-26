@@ -108,6 +108,7 @@ function createFilePanel(name, parent) {
 
     var folderEdit = panel.add("edittext", undefined, "File destination");
     folderEdit.text = folder.fsName;
+    folderEdit.size = [400, 28];
     folderEdit.enabled = false;
 
     var pathButton = panel.add("button", undefined, "...");
@@ -136,7 +137,7 @@ function createArtboardPanel(name, parent) {
     for (var i = 0; i < document.artboards.length; i++) {
         if (i === 0){
             generateCheckbox(group, document.artboards[i], selectedArtboards, i);
-        } else if (i % 20 == 0) {
+        } else if (i % 15 == 0) {
             group = panel.add("group");
             group.orientation = 'column';
             group.alignChildren = 'left';
