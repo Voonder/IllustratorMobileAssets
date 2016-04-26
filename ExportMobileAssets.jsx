@@ -63,7 +63,7 @@ var uwpExport = [
     { type:"Universal Windows Platform", name:"scale-400", scaleFactor:400 },
 ];
 
-var androidFolderName = "";
+var androidFolderName = "drawable";
 var iosFileSuffixName = "";
 var uwpFileSuffixName = "";
 
@@ -244,13 +244,27 @@ function createButtonPanel(parent) {
         } else if (lengthArtboards === 0) {
             alert("Please select artboards.");
         } else {
+            var totalExport = lengthExport * lengthArtboards;
+            var countExport = 0;
+            
+            this.parent.parent.close();
+            var progressDialog = new Window("palette", "Export assets to...");
+            var completedTxt = progressDialog.add("statictext", undefined, "Exporting in progress: " + countExport + "/" + totalExport);
+            var progressbar = progressDialog.add("progressbar", undefined, countExport, totalExport);
+            progressbar.preferredSize = [300, 20];
+            progressDialog.show();
+
             for (var key in selectedExport) {
                 if (selectedExport.hasOwnProperty(key)) {
                     var item = selectedExport[key];
                     exportToPNG24File(item);
+                    progressbar.value = countExport;
+                    completedTxt.text = "Exporting in progress: " + countExport + "/" + totalExport;
+                    progressDialog.update();
+                    countExport++;
                 }
             }
-            this.parent.parent.close();
+            progressDialog.close();
         }
     };
 
@@ -282,11 +296,6 @@ function exportToPNG24File(item) {
         }
         ab = selectedArtboards[abName];
         document.artboards.setActiveArtboardIndex(ab.index);
-
-        if (ab.name.charAt(0) == "!") {
-            continue;
-            //alert("Error");
-        }
 
         if (item.type === "Android") {
             file = new File(expFolder.fsName + "/" + ab.name + ".png");
