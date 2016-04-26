@@ -92,7 +92,7 @@ if (document && folder) {
 
     createOSTabPanel(tpanel, "Android", "Folder", androidFolder.sort(), androidExport, androidFolderName);
     createOSTabPanel(tpanel, "iOS", "File suffix", iosSuffix.sort(), iosExport, iosFileSuffixName);
-    createOSTabPanel(tpanel, "Universal Windows Platform", "File suffix", uwpSuffix.sort(), uwpExport, uwpFileSuffixName);
+    createOSTabPanel(tpanel, "Universal Windows Platform", "File suffix", uwpSuffix, uwpExport, uwpFileSuffixName);
     // -----
 
     // ----- Button
@@ -291,7 +291,11 @@ function exportToPNG24File(item) {
         if (item.type === "Android") {
             file = new File(expFolder.fsName + "/" + ab.name + ".png");
         } else if (item.type === "iOS") {
-            file = new File(expFolder.fsName + "/" + ab.name + "-" + iosFileSuffixName + item.name + ".png");
+            if (iosFileSuffixName === "iTunesArtwork") {
+                file = new File(expFolder.fsName + "/" + iosFileSuffixName + item.name);
+            } else {
+                file = new File(expFolder.fsName + "/" + ab.name + "-" + iosFileSuffixName + item.name + ".png");
+            }
         } else if (item.type === "Universal Windows Platform") {
             file = new File(expFolder.fsName + "/" + ab.name + uwpFileSuffixName + "." + item.name + ".png");
         }
