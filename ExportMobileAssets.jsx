@@ -260,7 +260,7 @@ function exportToPNG24File(item) {
     var ab, file, options, expFolder;
 
     if (item.type === "Android") {
-        expFolder = new Folder(folder.fsName + "/drawable-" + item.name);
+        expFolder = new Folder(folder.fsName + "/" + androidFolderName + "-" + item.name);
     } else if (item.type === "iOS") {
         expFolder = new Folder(folder.fsName + "/iOS");
     } else if (item.type === "Universal Windows Platform") {
@@ -288,9 +288,9 @@ function exportToPNG24File(item) {
         if (item.type === "Android") {
             file = new File(expFolder.fsName + "/" + ab.name + ".png");
         } else if (item.type === "iOS") {
-            file = new File(expFolder.fsName + "/" + ab.name + "-" + item.name + ".png");
+            file = new File(expFolder.fsName + "/" + ab.name + "-" + iosFileSuffixName + item.name + ".png");
         } else if (item.type === "Universal Windows Platform") {
-            file = new File(expFolder.fsName + "/" + ab.name + "." + item.name + ".png");
+            file = new File(expFolder.fsName + "/" + ab.name + uwpFileSuffixName + "." + item.name + ".png");
         }
 
         options = new ExportOptionsPNG24();
