@@ -15,20 +15,20 @@
  */
 #target illustrator
 
-var androidFolderName = [
+var androidFolder = [
     "drawable",
     "mipmap"
 ];
 
 var androidExport = [
-    { scaleFactor:18.75, type:"android", name:"ldpi" },
-    { scaleFactor:25, type:"android", name:"mdpi" },
-    { scaleFactor:33.33, type:"android", name:"tvdpi" },
-    { scaleFactor:37.5, type:"android", name:"hdpi" },
-    { scaleFactor:50, type:"android", name:"xhdpi" },
-    { scaleFactor:75, type:"android", name:"xxhdpi" },
-    { scaleFactor:100, type:"android", name:"xxxhdpi" },
-    { scaleFactor:266.66, type:"android", name:"web" }
+    { type:"Android", name:"ldpi", scaleFactor:18.75 },
+    { type:"Android", name:"mdpi", scaleFactor:25 },
+    { type:"Android", name:"tvdpi", scaleFactor:33.33 },
+    { type:"Android", name:"hdpi", scaleFactor:37.5 },
+    { type:"Android", name:"xhdpi", scaleFactor:50 },
+    { type:"Android", name:"xxhdpi", scaleFactor:75 },
+    { type:"Android", name:"xxxhdpi", scaleFactor:100 },
+    { type:"Android", name:"web", scaleFactor:266.66 }
 ];
 
 var iosSuffix = [
@@ -43,9 +43,9 @@ var iosSuffix = [
 ];
 
 var iosExport = [
-    { scaleFactor:50, type:"ios", name:"" },
-    { scaleFactor:100, type:"ios", name:"@2x" },
-    { scaleFactor:150, type:"ios", name:"@3x" }
+    { type:"iOS", name:"", scaleFactor:50 },
+    { type:"iOS", name:"@2x", scaleFactor:100 },
+    { type:"iOS", name:"@3x", scaleFactor:150 }
 ];
 
 var uwpSuffix = [
@@ -56,23 +56,22 @@ var uwpSuffix = [
 ];
 
 var uwpExport = [
-    { scaleFactor:100, type:"windows", name:"scale-100" },
-    { scaleFactor:125, type:"windows", name:"scale-125" },
-    { scaleFactor:150, type:"windows", name:"scale-150" },
-    { scaleFactor:200, type:"windows", name:"scale-200" },
-    { scaleFactor:400, type:"windows", name:"scale-400" },
+    { type:"Universal Windows Platform", name:"scale-100", scaleFactor:100 },
+    { type:"Universal Windows Platform", name:"scale-125", scaleFactor:125 },
+    { type:"Universal Windows Platform", name:"scale-150", scaleFactor:150 },
+    { type:"Universal Windows Platform", name:"scale-200", scaleFactor:200 },
+    { type:"Universal Windows Platform", name:"scale-400", scaleFactor:400 },
 ];
 
+var AndroidFolderName = "";
+var iOSFileSuffixName = "";
+var uwpFileSuffixName = "";
+
 var selectedExport = {};
-var selectedType = {};
-var selectedArtboardsOptions = {};
+var selectedArtboards = {};
 
 var document = app.activeDocument;
 var folder = new Folder(document.path);
-
-var androidMipmapFolder = false;
-var iosFileSuffixName = "";
-var uwpFileSuffixName = "";
 
 if (document && folder) {
     var dialog = new Window("dialog", "Export assets to ...");
@@ -82,28 +81,18 @@ if (document && folder) {
     createFilePanel("File destination", dialog);
     // -----
 
-    var groupMiddle = dialog.add("group");
+    var group = dialog.add("group");
 
     // ----- Artboards panel
-    createArtboardPanel("Select artboards", groupMiddle);
+    createArtboardPanel("Select artboards", group);
     // -----
 
     // ----- OS table panel
-    var tpanel = groupMiddle.add("tabbedpanel");
+    var tpanel = group.add("tabbedpanel");
 
-    var androidTab = tpanel.add("tab", undefined, "Android");
-    androidTab.orientation = 'row';
-    androidTab.alignChildren = 'top';
-    var iosTab = tpanel.add("tab", undefined, "iOS");
-    iosTab.orientation = 'row';
-    iosTab.alignChildren = 'top';
-    var uwpTab = tpanel.add("tab", undefined, "Universal Windows Platform");
-    uwpTab.orientation = 'row';
-    uwpTab.alignChildren = 'top';
-
-    createOSTabPanel(androidTab, "android", "Folder", androidFolderName.sort(), androidExport);
-    createOSTabPanel(iosTab, "ios", "File suffix", iosSuffix.sort(), iosExport);
-    createOSTabPanel(uwpTab, "windows", "File suffix", uwpSuffix.sort(), uwpExport);
+    createOSTabPanel(tpanel, "Android", "Folder", androidFolder.sort(), androidExport, androidFolderName);
+    createOSTabPanel(tpanel, "iOS", "File suffix", iosSuffix.sort(), iosExport, iosFileSuffixName);
+    createOSTabPanel(tpanel, "Universal Windows Platform", "File suffix", uwpSuffix.sort(), uwpExport, uwpFileSuffixName);
     // -----
 
     // ----- Button
@@ -117,20 +106,19 @@ function createFilePanel(name, parent) {
     var panel = parent.add("panel", undefined, name);
     panel.orientation = 'row';
 
-    var fileLocationEditText = panel.add("edittext", undefined, "File destination");
-    fileLocationEditText.text = folder.fsName;
-    fileLocationEditText.enabled = false;
+    var folderEdit = panel.add("edittext", undefined, "File destination");
+    folderEdit.text = folder.fsName;
+    folderEdit.enabled = false;
 
-    var changePathButton = panel.add("button", undefined, "...");
-    changePathButton.size = [28, 28];
+    var pathButton = panel.add("button", undefined, "...");
+    pathButton.size = [28, 28];
 
-    changePathButton.onClick = function() {
+    pathButton.onClick = function() {
         var tmpFolder = Folder.selectDialog("Select new folder destination", folder.fsName);
         if (tmpFolder) {
             folder = tmpFolder;
-            fileLocationEditText.text = folder.fsName;
-        }
-        else {
+            folderEdit.text = folder.fsName;
+        } else {
             //alert("Cannot change current path");
         }
     };
@@ -157,35 +145,34 @@ function createArtboardPanel(name, parent) {
     }
 }
 
-function createOSTabPanel(parent, os, typeName, arrayType, arrayExport){
-    var group = parent.add("group");
-    group.orientation = 'row';
-    group.alignChildren = 'top';
+function createOSTabPanel(parent, os, name, arrayType, arrayExport) {
+    var tab = parent.add("tab", undefined, os);
+    tab.orientation = 'row';
+    tab.alignChildren = 'top';
 
-    var panelType = group.add("panel", undefined, typeName);
-    panelType.alignChildren = 'left';
-    var panelExport = group.add("panel", undefined, "Size");
-    panelExport.alignChildren = 'left';
+    var typePanel = tab.add("panel", undefined, name);
+    typePanel.alignChildren = 'left';
+    var exportPanel = tab.add("panel", undefined, "Size");
+    exportPanel.alignChildren = 'left';
 
     for (var i = 0; i < arrayType.length; i++) {
-        generateRadioButton(panelType, arrayType[i], os);
+        generateRadioButton(typePanel, os, arrayType[i]);
     }
 
     for (var j = 0; j < arrayExport.length; j++) {
         generateCheckbox(panelExport, arrayExport[j], selectedExport);
     }
 
-    var btnAll = panelExport.add("button", undefined, "Select All");
-    btnAll.alignment = 'center';
-    btnAll.onClick = function() {
+    var button = exportPanel.add("button", undefined, "Select All");
+    button.alignment = 'center';
+    button.onClick = function() {
         var newValue;
-        if(btnAll.text === "Select All"){
+        if (button.text === "Select All") {
             newValue = true;
-            btnAll.text = "Deselect All";
-        }
-        else{
+            button.text = "Deselect All";
+        } else {
             newValue = false;
-            btnAll.text = "Select All";
+            button.text = "Select All";
         }
         var children = this.parent.children;
         var child;
@@ -199,30 +186,24 @@ function createOSTabPanel(parent, os, typeName, arrayType, arrayExport){
     }
 }
 
-function generateRadioButton(parent, name, os){
+function generateRadioButton(parent, os, name) {
     var rad = parent.add("radiobutton", undefined, name);
 
-    if (os === "android") {
-        if(name === "drawable") rad.value = true;
-    }
-    else if(os === "ios"){
-        if(name === "") rad.value = true;
+    if (os === "Android") {
+        if (name === "drawable") rad.value = true;
+    } else if (os === "iOS") {
+        if (name === "") rad.value = true;
     }
 
     rad.onClick = function(){
-        if (os === "android") {
-            if(name === "drawable") androidMipmapFolder = false;
-            if(name === "mipmap") androidMipmapFolder = true;
-        }
-        else if(os === "ios"){
+        if (os === "Android") {
+            androidFolderName = name;
+        } else if (os === "iOS"){
             iosFileSuffixName = name;
-        }
-        else if (os === "windows"){
+        } else if (os === "Universal Windows Platform"){
             uwpFileSuffixName = name;
         }
-        else {
-            alert("Error in the generation of radio button, please add the \"OS\" in the method");
-        }
+        //alert("change to: " + name);
     }
 }
 
@@ -234,10 +215,9 @@ function generateCheckbox(parent, item, array) {
         if (this.value) {
             array[this.item.name] = this.item;
             //alert("added: " + this.item.name);
-        }
-        else {
+        } else {
             delete array[this.item.name];
-            //alert("added: " + this.item.name);
+            //alert("delete: " + this.item.name);
         }
     };
 }
@@ -245,6 +225,7 @@ function generateCheckbox(parent, item, array) {
 function createButtonPanel(parent) {
     var panel = parent.add("group");
     panel.alignChildren = 'right';
+
     var exportButton = panel.add("button", undefined, "Export");
     var cancelButton = panel.add("button", undefined, "Cancel");
 
@@ -253,15 +234,13 @@ function createButtonPanel(parent) {
         var lengthArtboards = 0;
 
         for (var i in selectedExport) lengthExport++;
-        for (var j in selectedArtboardsOptions) lengthArtboards++;
+        for (var j in selectedArtboards) lengthArtboards++;
 
         if (lengthExport === 0) {
             alert("Please select export sizes.");
-        }
-        else if (lengthArtboards === 0) {
+        } else if (lengthArtboards === 0) {
             alert("Please select artboards.");
-        }
-        else {
+        } else {
             for (var key in selectedExport) {
                 if (selectedExport.hasOwnProperty(key)) {
                     var item = selectedExport[key];
@@ -280,16 +259,13 @@ function createButtonPanel(parent) {
 function exportToPNG24File(item) {
     var ab, file, options, expFolder;
 
-    if (item.type === "android") {
+    if (item.type === "Android") {
         expFolder = new Folder(folder.fsName + "/drawable-" + item.name);
-    }
-    else if (item.type === "ios") {
+    } else if (item.type === "iOS") {
         expFolder = new Folder(folder.fsName + "/iOS");
-    }
-    else if (item.type === "windows") {
+    } else if (item.type === "Universal Windows Platform") {
         expFolder = new Folder(folder.fsName + "/UWP");
-    }
-    else {
+    } else {
         //alert("Error during exporting file");
     }
 
@@ -297,11 +273,11 @@ function exportToPNG24File(item) {
         expFolder.create();
     }
 
-    for (var abName in selectedArtboardsOptions) {
-        if (!selectedArtboardsOptions.hasOwnProperty(abName)) {
+    for (var abName in selectedArtboards) {
+        if (!selectedArtboards.hasOwnProperty(abName)) {
             continue;
         }
-        ab = selectedArtboardsOptions[abName];
+        ab = selectedArtboards[abName];
         document.artboards.setActiveArtboardIndex(ab.index);
 
         if (ab.name.charAt(0) == "!") {
@@ -309,13 +285,11 @@ function exportToPNG24File(item) {
             //alert("Error");
         }
 
-        if (item.type === "android") {
+        if (item.type === "Android") {
             file = new File(expFolder.fsName + "/" + ab.name + ".png");
-        }
-        else if (item.type === "ios") {
+        } else if (item.type === "iOS") {
             file = new File(expFolder.fsName + "/" + ab.name + "-" + item.name + ".png");
-        }
-        else if (item.type === "windows") {
+        } else if (item.type === "Universal Windows Platform") {
             file = new File(expFolder.fsName + "/" + ab.name + "." + item.name + ".png");
         }
 
