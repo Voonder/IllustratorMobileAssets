@@ -129,19 +129,21 @@ function createArtboardPanel(name, parent) {
     panel.orientation = 'row';
     panel.alignChildren = 'left';
 
-    var tmpGroup;
+    var group = panel.add("group");
+    group.orientation = 'column';
+    group.alignChildren = 'left';
 
     for (var i = 0; i < document.artboards.length; i++) {
-        if (i % 20 == 0) {
-            tmpGroup = panel.add("group");
-            tmpGroup.orientation = 'column';
-            tmpGroup.alignChildren = 'left';
-            generateCheckbox(tmpGroup, document.artboards[i], selectedArtboardsOptions);
+        if (i === 0){
+            generateCheckbox(group, document.artboards[i], selectedArtboards, i);
+        } else if (i % 20 == 0) {
+            group = panel.add("group");
+            group.orientation = 'column';
+            group.alignChildren = 'left';
+            generateCheckbox(group, document.artboards[i], selectedArtboards, i);
+        } else {
+            generateCheckbox(group, document.artboards[i], selectedArtboards, i);
         }
-        else {
-            generateCheckbox(tmpGroup, document.artboards[i], selectedArtboardsOptions);
-        }
-
     }
 }
 
@@ -160,7 +162,7 @@ function createOSTabPanel(parent, os, name, arrayType, arrayExport) {
     }
 
     for (var j = 0; j < arrayExport.length; j++) {
-        generateCheckbox(panelExport, arrayExport[j], selectedExport);
+        generateCheckbox(exportPanel, arrayExport[j], selectedExport, j);
     }
 
     var button = exportPanel.add("button", undefined, "Select All");
@@ -207,10 +209,11 @@ function generateRadioButton(parent, os, name) {
     }
 }
 
-function generateCheckbox(parent, item, array) {
+function generateCheckbox(parent, item, array, index) {
     var cb = parent.add("checkbox", undefined, "\u00A0" + item.name);
     cb.item = item;
-    cb.item.index = i;  // save the index, to be used later in setActiveArtboardIndex
+    cb.item.index = index; // save the index, to be used later in setActiveArtboardIndex
+    
     cb.onClick = function() {
         if (this.value) {
             array[this.item.name] = this.item;
