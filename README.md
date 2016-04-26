@@ -16,7 +16,27 @@ The location is for reference only, and must be changed according to your own ve
 
 1. Open the Illustrator file that includes the artboards you want to export
 2. Select this script from the Illustrator Scripts menu
-3. A dialog box with destination folder, artboards and supported scale type will open
+3. A dialog box with destination folder, artboards, folder name *(for Android)*, file suffix *(for iOS and UWP)* and supported scale type will open
+4. Click "Export" to generate all different assets
+
+![ScreenAndroid](/images/screenshot_android.png)
+
+*Images available [here](/images).*
+
+### Possible scale
+
+The baseline image used for Android is `xxxhdpi`, for iOS it is `@2x` and for UWP it is `scale-100`. The script will scale up and down from these sizes.
+
+| Android |  iOS  | Universal Windows Platform |
+|:-------:|:-----:|:--------------------------:|
+| ldpi    | [@1x] | scale-100                  |
+| mdpi    | @2x   | scale-125                  |
+| tvdpi   | @3x   | scale-150                  |
+| hdpi    |       | scale-200                  |
+| xhdpi   |       | scale-400                  |
+| xxhdpi  |       |                            |
+| xxxhdpi |       |                            |
+| web     |       |                            |
 
 ## Information
 
