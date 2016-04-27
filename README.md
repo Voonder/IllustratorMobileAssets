@@ -21,7 +21,7 @@ The location is for reference only, and must be changed according to your own ve
 
 ![ScreenAndroid](/images/screenshot_android.png)
 
-*Images available [here](/images).*
+*Others images available [here](/images).*
 
 ### Possible scale
 
